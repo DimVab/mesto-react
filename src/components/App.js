@@ -1,41 +1,13 @@
-import headerLogo from './images/icons/mesto.svg';
-import kustoAvatar from './images/kusto.jpg';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 function App() {
   return (
     <>
-      <header className="header root__header">
-        <img src={headerLogo} alt="Место. Россия" className="header__logo" />
-      </header>
-
-      <main className="main">
-
-        <section className="profile main__profile">
-          <div className="profile__container">
-            <div className="profile__avatar-container">
-              <img className="profile__avatar" src={kustoAvatar} alt="Текущий аватар" />
-              <button className="profile__avatar-edit-icon" type="button" aria-label="Изменить аватар"></button>
-            </div>
-            <div className="profile__info">
-              <h1 className="profile__name">Жак-Ив-Кусто</h1>
-              <p className="profile__job">Исследователь океана</p>
-              <button className="profile__edit-button" type="button" aria-label="Редактировать"></button>
-            </div>
-          </div>
-          <button className="profile__add-button" type="button" aria-label="Добавить"></button>
-        </section>
-
-        <section className="elements main__elements">
-          <ul className="elements__list">
-
-          </ul>
-        </section>
-
-      </main>
-
-      <footer className="footer root__footer">
-        <p className="footer__copyright">© 2021 Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
 
       <section className="popup popup_type_edit-profile">
         <div className="popup__container">
