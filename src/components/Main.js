@@ -1,20 +1,28 @@
 import React from 'react'
 import api from '../utils/Api';
+import Card from './Card';
 
 function Main (props) {
 
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api.getUserInfo()
       .then((data) => {
-        console.log(data);
         setUserName(data.name);
         setUserDescription(data.about);
         setUserAvatar(data.avatar);
     });
+  }, []);
+
+  React.useEffect(() => {
+    api.getInitialCards()
+      .then((cardsData) => {
+        setCards(cardsData);
+      });
   }, []);
 
   return(
@@ -37,6 +45,10 @@ function Main (props) {
 
       <section className="elements main__elements">
         <ul className="elements__list">
+
+          {cards.map((card, i) => {
+            return <Card card={card} key={card._id}/>
+          })}
 
         </ul>
       </section>
