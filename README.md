@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Проект 10: Место
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Обзор
+Данный проект выполнен как практическое задание в курсе освоения библиотеки "React" профессии Веб-разработчик.
 
-## Available Scripts
+Проект представляет из себя одностраничный сайт с фотографиямии различных мест. В нём размещены 6 фотографий с подписями. Реализованы следующие возможности:
+* открытие картинки в полном размере
+* закрытие картинки кнопкой клавиатуры "Esc"
+* закрытие картинки кликом за пределами попапа
 
-In the project directory, you can run:
+## Используемые технологии
+В проекте используются такие технологии, как:
+* flexbox;
+* grid;
+* отзывчивая вёрстка (адаптивная + резиновая);
+* React (компоненты составлены с помощью функционального подхода с использованием хуков)
+* реализовано взаимодействие с сервером через API: данные о фотографиях и пользователе загружаются с сервера
 
-### `npm start`
+### Другие особенности
+1. Для работы с макетом использовался инструмент **Figma**
+2. Файловая структура организована по правилам **Nested БЭМ**
+3. Используемый шрифт - *"Inter"*
+4. Изображения сжаты при помощи сервиса **TinyPNG**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Адаптивная вёрстка
+Проект адаптирован преимущественно для устройств с шириной экранов:
+* 1280px
+* 768px
+* 320px
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Контрольные точки перехода сделаны на ширинах 1280px, 1024px и 620px. В промежутках между ними используется резиновая вёрстка
 
-### `npm test`
+### Системные требования
+Из-за использования технологии построения сетки Grid проект некоректно отображается в браузере Internet Explorer
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Ссылка на проект:**
+https://dimvab.github.io/mesto-react/

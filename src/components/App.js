@@ -14,17 +14,14 @@ function App() {
 
   function handleEditAvatarClick () {
     setOpenEditAvatarPopup(true);
-    document.addEventListener('keydown', handleEscClose);
   }
 
   function handleEditProfileClick () {
     setOpenProfilePopup(true);
-    document.addEventListener('keydown', handleEscClose);
   }
 
   function handleAddPlaceClick () {
     setOpenAddPlacePopup(true);
-    document.addEventListener('keydown', handleEscClose);
   }
 
   function handleCardClick (card) {
@@ -36,14 +33,6 @@ function App() {
     setOpenProfilePopup(false);
     setOpenAddPlacePopup(false);
     setSelectedCard(false);
-    document.removeEventListener('keydown', handleEscClose);
-  }
-
-  const exitKey = "Escape";
-  function handleEscClose(evt) {
-    if (evt.key === exitKey) {
-      closeAllPopups();
-    }
   }
 
   return (
@@ -65,11 +54,11 @@ function App() {
         onClose={closeAllPopups}
         children={
           <><div className="form__input-container">
-            <input type="text" className="form__input form__input_type_name" id="name-input" placeholder="Введите своё имя" name="name" minlength="2" maxlength="40" required />
+            <input type="text" className="form__input form__input_type_name" id="name-input" placeholder="Введите своё имя" name="name" minLength="2" maxLength="40" required />
             <span className="form__input-error name-input-error"></span>
           </div>
           <div className="form__input-container">
-            <input type="text" className="form__input form__input_type_job" id="job-input" placeholder="Ваша профессия" name="about" minlength="2" maxlength="200" required />
+            <input type="text" className="form__input form__input_type_job" id="job-input" placeholder="Ваша профессия" name="about" minLength="2" maxLength="200" required />
             <span className="form__input-error job-input-error"></span>
           </div></>
         } />
@@ -95,7 +84,7 @@ function App() {
         onClose={closeAllPopups}
         children={
           <><div className="form__input-container">
-            <input type="text" className="form__input form__input_type_name-of-card" id="name-of-card-input" placeholder="Название" name="name" minlength="2" maxlength="30" required />
+            <input type="text" className="form__input form__input_type_name-of-card" id="name-of-card-input" placeholder="Название" name="name" minLength="2" maxLength="30" required />
             <span className="form__input-error name-of-card-input-error"></span>
           </div>
           <div className="form__input-container">
