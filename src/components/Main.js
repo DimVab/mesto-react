@@ -1,6 +1,21 @@
-import kustoAvatar from '../images/kusto.jpg';
+import React from 'react'
+import api from '../utils/Api';
 
 function Main (props) {
+
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
+
+  React.useEffect(() => {
+    api.getUserInfo()
+      .then((data) => {
+        console.log(data);
+        setUserName(data.name);
+        setUserDescription(data.about);
+        setUserAvatar(data.avatar);
+    });
+  }, []);
 
   return(
     <main className="main">
@@ -8,12 +23,12 @@ function Main (props) {
       <section className="profile main__profile">
         <div className="profile__container">
           <div className="profile__avatar-container">
-            <img className="profile__avatar" src={kustoAvatar} alt="Текущий аватар" />
+            <img className="profile__avatar" src={userAvatar} alt="Текущий аватар" />
             <button className="profile__avatar-edit-icon" type="button" onClick={props.onEditProfile} aria-label="Изменить аватар"></button>
           </div>
           <div className="profile__info">
-            <h1 className="profile__name">Жак-Ив-Кусто</h1>
-            <p className="profile__job">Исследователь океана</p>
+            <h1 className="profile__name">{userName}</h1>
+            <p className="profile__job">{userDescription}</p>
             <button className="profile__edit-button" type="button" onClick={props.onAddPlace} aria-label="Редактировать"></button>
           </div>
         </div>
