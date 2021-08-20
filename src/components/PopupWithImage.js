@@ -1,13 +1,13 @@
-function PopupWithImage () {
+function PopupWithImage (props) {
 
 
 
   return(
-    <section className="popup popup_type_open-image">
+    <section className={`popup popup_type_open-image ${props.isOpen}`}>
       <figure className="popup__image-container">
-        <button className="popup__close-icon" type="button" aria-label="Закрыть"></button>
-        <img className="popup__image" src="#" alt="#" />
-        <figcaption className="popup__caption"></figcaption>
+        <button className="popup__close-icon" type="button" onClick={props.onClose} aria-label="Закрыть"></button>
+        <img className="popup__image" src={props.card.link} alt={props.card.name} />
+        <figcaption className="popup__caption">{props.card.name}</figcaption>
       </figure>
     </section>
   )
