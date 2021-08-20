@@ -99,7 +99,7 @@ function App() {
         submit="Да"
       />
 
-      <PopupWithImage card={selectedCard} isOpen={selectedCard && "popup_opened"} onClose={closeAllPopups}/>
+      <ImagePopup card={selectedCard} isOpen={selectedCard && "popup_opened"} onClose={closeAllPopups}/>
     </>
   );
 }
