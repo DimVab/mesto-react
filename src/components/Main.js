@@ -2,7 +2,7 @@ import React from 'react';
 import api from '../utils/Api';
 import Card from './Card';
 
-function Main (props) {
+function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
@@ -39,22 +39,22 @@ function Main (props) {
         <div className="profile__container">
           <div className="profile__avatar-container">
             <img className={`profile__avatar ${isAvatarHovered && "profile__avatar_hovered"}`} src={userAvatar} onMouseEnter={mouseoverAvatar} alt="Текущий аватар" />
-            <button className={`profile__avatar-edit-icon ${isAvatarHovered && "profile__avatar-edit-icon_hovered"}`} type="button" onClick={props.onEditProfile} onMouseLeave={mouseoutAvatar} aria-label="Изменить аватар"></button>
+            <button className={`profile__avatar-edit-icon ${isAvatarHovered && "profile__avatar-edit-icon_hovered"}`} type="button" onClick={onEditAvatar} onMouseLeave={mouseoutAvatar} aria-label="Изменить аватар"></button>
           </div>
           <div className="profile__info">
             <h1 className="profile__name">{userName}</h1>
             <p className="profile__job">{userDescription}</p>
-            <button className="profile__edit-button" type="button" onClick={props.onAddPlace} aria-label="Редактировать"></button>
+            <button className="profile__edit-button" type="button" onClick={onEditProfile} aria-label="Редактировать"></button>
           </div>
         </div>
-        <button className="profile__add-button" type="button" onClick={props.onEditAvatar} aria-label="Добавить"></button>
+        <button className="profile__add-button" type="button" onClick={onAddPlace} aria-label="Добавить"></button>
       </section>
 
       <section className="elements main__elements">
         <ul className="elements__list">
 
           {cards.map((card) => {
-            return <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
+            return <Card card={card} key={card._id} onCardClick={onCardClick}/>
           })}
 
         </ul>
