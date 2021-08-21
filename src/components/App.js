@@ -10,7 +10,9 @@ function App() {
   const [isEditProfilePopupOpen, setOpenProfilePopup] = React.useState(false);
   const [isAddPlacePopupOpen, setOpenAddPlacePopup] = React.useState(false);
   const [isEditAvatarPopupOpen, setOpenEditAvatarPopup] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [isImagePopupOpen, setOpenImagePopup] = React.useState(false);
+  // пришлось создать новую переменную состояния, тк если изначально в SelectedCard создать пустой объект, то он будет восприниматься как true и при рендеринге страницы будет открываться пустой попап с картинкой; при изначальном значении null появляется ошибка
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick () {
     setOpenEditAvatarPopup(true);
@@ -26,13 +28,15 @@ function App() {
 
   function handleCardClick (card) {
     setSelectedCard(card);
+    setOpenImagePopup(true);
   }
 
   function closeAllPopups () {
     setOpenEditAvatarPopup(false);
     setOpenProfilePopup(false);
     setOpenAddPlacePopup(false);
-    setSelectedCard(false);
+    setOpenImagePopup(false);
+    setSelectedCard({});
   }
 
   return (
@@ -50,9 +54,8 @@ function App() {
         name="edit-profile"
         title="Редактировать профиль"
         submit="Сохранить"
-        isOpen={isEditProfilePopupOpen && "popup_opened"}
-        onClose={closeAllPopups}
-        children={
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}>
           <><div className="form__input-container">
             <input type="text" className="form__input form__input_type_name" id="name-input" placeholder="Введите своё имя" name="name" minLength="2" maxLength="40" required />
             <span className="form__input-error name-input-error"></span>
@@ -61,28 +64,26 @@ function App() {
             <input type="text" className="form__input form__input_type_job" id="job-input" placeholder="Ваша профессия" name="about" minLength="2" maxLength="200" required />
             <span className="form__input-error job-input-error"></span>
           </div></>
-        } />
+      </PopupWithForm>
 
       <PopupWithForm
         name="edit-avatar"
         title="Обновить аватар"
         submit="Сохранить"
-        isOpen={isEditAvatarPopupOpen && "popup_opened"}
-        onClose={closeAllPopups}
-        children={
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}>
           <div className="form__input-container">
             <input type="url" className="form__input form__input_type_url" id="image-url-input" placeholder="Ссылка на картинку" name="avatar" required />
             <span className="form__input-error image-url-input-error"></span>
           </div>
-        } />
+      </PopupWithForm>
 
       <PopupWithForm
         name="add-image"
         title="Новое место"
         submit="Создать"
-        isOpen={isAddPlacePopupOpen && "popup_opened"}
-        onClose={closeAllPopups}
-        children={
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}>
           <><div className="form__input-container">
             <input type="text" className="form__input form__input_type_name-of-card" id="name-of-card-input" placeholder="Название" name="name" minLength="2" maxLength="30" required />
             <span className="form__input-error name-of-card-input-error"></span>
@@ -91,7 +92,7 @@ function App() {
             <input type="url" className="form__input form__input_type_url" id="avatar-url-input" placeholder="Ссылка на картинку" name="link" required />
             <span className="form__input-error avatar-url-input-error"></span>
           </div></>
-        } />
+      </PopupWithForm>
 
       <PopupWithForm
         name="type_submit"
@@ -99,7 +100,7 @@ function App() {
         submit="Да"
       />
 
-      <ImagePopup card={selectedCard} isOpen={selectedCard && "popup_opened"} onClose={closeAllPopups}/>
+      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups}/>
     </>
   );
 }

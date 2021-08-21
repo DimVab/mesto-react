@@ -2,18 +2,11 @@ import React from 'react';
 
 function Footer () {
 
-  const [years, setYears] = React.useState(0);
-
-  React.useEffect(() => {
-    requestAnimationFrame(() => {
-      const date = new Date();
-      setYears(date.getFullYear());
-    });
-  });
+  const currentYear = new Date().getFullYear();
 
   return(
     <footer className="footer root__footer">
-      <p className="footer__copyright">© {years} Mesto Russia</p>
+      <p className="footer__copyright">© {currentYear} Mesto Russia</p>
     </footer>
   )
 }
