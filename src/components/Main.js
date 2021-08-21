@@ -4,26 +4,33 @@ import Card from './Card';
 
 function Main (props) {
 
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
+  const [isAvatarHovered, setAvatarHovered] = React.useState(false);
 
   React.useEffect(() => {
-    api.getUserInfo()
+    api.getInitialData()
       .then((data) => {
-        setUserName(data.name);
-        setUserDescription(data.about);
-        setUserAvatar(data.avatar);
-    });
-  }, []);
-
-  React.useEffect(() => {
-    api.getInitialCards()
-      .then((cardsData) => {
-        setCards(cardsData);
+        const [initialCardsData, userInfoData] = data;
+        setUserName(userInfoData.name);
+        setUserDescription(userInfoData.about);
+        setUserAvatar(userInfoData.avatar);
+        setCards(initialCardsData);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
+
+  function mouseoverAvatar () {
+    setAvatarHovered(true);
+  }
+
+  function mouseoutAvatar () {
+    setAvatarHovered(false);
+  }
 
   return(
     <main className="main">
@@ -31,8 +38,8 @@ function Main (props) {
       <section className="profile main__profile">
         <div className="profile__container">
           <div className="profile__avatar-container">
-            <img className="profile__avatar" src={userAvatar} alt="Текущий аватар" />
-            <button className="profile__avatar-edit-icon" type="button" onClick={props.onEditProfile} aria-label="Изменить аватар"></button>
+            <img className={`profile__avatar ${isAvatarHovered && "profile__avatar_hovered"}`} src={userAvatar} onMouseEnter={mouseoverAvatar} alt="Текущий аватар" />
+            <button className={`profile__avatar-edit-icon ${isAvatarHovered && "profile__avatar-edit-icon_hovered"}`} type="button" onClick={props.onEditProfile} onMouseLeave={mouseoutAvatar} aria-label="Изменить аватар"></button>
           </div>
           <div className="profile__info">
             <h1 className="profile__name">{userName}</h1>
