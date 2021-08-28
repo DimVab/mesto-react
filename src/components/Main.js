@@ -21,6 +21,28 @@ function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
       });
   }, []);
 
+  function handleCardLike(card) {
+    api.likeCard(card._id)
+      .then((newCard) => {
+          setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+      });
+  }
+
+  function handleRemoveCardLike(card) {
+    api.removeLikeCard(card._id)
+      .then((newCard) => {
+          setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+      });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then((res) => {
+        console.log(res);
+        setCards((cards) => cards.filter((c) => c._id != card._id));
+      });
+  }
+
   function mouseoverAvatar () {
     setAvatarHovered(true);
   }
@@ -51,7 +73,13 @@ function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
         <ul className="elements__list">
 
           {cards.map((card) => {
-            return <Card card={card} key={card._id} onCardClick={onCardClick}/>
+            return <Card
+              card={card}
+              key={card._id}
+              onCardClick={onCardClick}
+              onCardLike={handleCardLike}
+              onRemoveCardLike={handleRemoveCardLike}
+              onCardDelete={handleCardDelete}/>
           })}
 
         </ul>
