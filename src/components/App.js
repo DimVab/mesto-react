@@ -1,18 +1,28 @@
-import React from 'react'
+import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import api from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
 
+  const [currentUser, setCurrentUser] = React.useState({});
   const [isEditProfilePopupOpen, setOpenProfilePopup] = React.useState(false);
   const [isAddPlacePopupOpen, setOpenAddPlacePopup] = React.useState(false);
   const [isEditAvatarPopupOpen, setOpenEditAvatarPopup] = React.useState(false);
   const [isImagePopupOpen, setOpenImagePopup] = React.useState(false);
   // пришлось создать новую переменную состояния, тк если изначально в SelectedCard создать пустой объект, то он будет восприниматься как true и при рендеринге страницы будет открываться пустой попап с картинкой; при изначальном значении null появляется ошибка
   const [selectedCard, setSelectedCard] = React.useState({});
+
+  React.useEffect(() => {
+    api.getUserInfo()
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+      });
+  }, []);
 
   function handleEditAvatarClick () {
     setOpenEditAvatarPopup(true);
@@ -40,7 +50,7 @@ function App() {
   }
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Main
         onEditProfile={handleEditProfileClick}
@@ -101,7 +111,7 @@ function App() {
       />
 
       <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups}/>
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import api from '../utils/Api';
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+  const currentUser = React.useContext(CurrentUserContext);
+
   const [cards, setCards] = React.useState([]);
   const [isAvatarHovered, setAvatarHovered] = React.useState(false);
 
@@ -14,9 +14,6 @@ function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     api.getInitialData()
       .then((data) => {
         const [initialCardsData, userInfoData] = data;
-        setUserName(userInfoData.name);
-        setUserDescription(userInfoData.about);
-        setUserAvatar(userInfoData.avatar);
         setCards(initialCardsData);
       })
       .catch((err) => {
@@ -38,12 +35,12 @@ function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
       <section className="profile main__profile">
         <div className="profile__container">
           <div className="profile__avatar-container">
-            <img className={`profile__avatar ${isAvatarHovered && "profile__avatar_hovered"}`} src={userAvatar} onMouseEnter={mouseoverAvatar} alt="Текущий аватар" />
+            <img className={`profile__avatar ${isAvatarHovered && "profile__avatar_hovered"}`} src={currentUser.avatar} onMouseEnter={mouseoverAvatar} alt="Текущий аватар" />
             <button className={`profile__avatar-edit-icon ${isAvatarHovered && "profile__avatar-edit-icon_hovered"}`} type="button" onClick={onEditAvatar} onMouseLeave={mouseoutAvatar} aria-label="Изменить аватар"></button>
           </div>
           <div className="profile__info">
-            <h1 className="profile__name">{userName}</h1>
-            <p className="profile__job">{userDescription}</p>
+            <h1 className="profile__name">{currentUser.name}</h1>
+            <p className="profile__job">{currentUser.about}</p>
             <button className="profile__edit-button" type="button" onClick={onEditProfile} aria-label="Редактировать"></button>
           </div>
         </div>
