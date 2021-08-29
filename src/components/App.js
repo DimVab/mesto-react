@@ -37,6 +37,9 @@ function App() {
     api.likeCard(card._id)
       .then((newCard) => {
           setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -44,13 +47,19 @@ function App() {
     api.removeLikeCard(card._id)
       .then((newCard) => {
           setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
-      .then((res) => {
+      .then(() => {
         setCards((cards) => cards.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -84,6 +93,9 @@ function App() {
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
         closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -92,6 +104,9 @@ function App() {
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
         closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -100,6 +115,9 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
