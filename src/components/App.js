@@ -6,6 +6,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -18,13 +19,40 @@ function App() {
   const [isImagePopupOpen, setOpenImagePopup] = React.useState(false);
   // пришлось создать новую переменную состояния, тк если изначально в SelectedCard создать пустой объект, то он будет восприниматься как true и при рендеринге страницы будет открываться пустой попап с картинкой; при изначальном значении null появляется ошибка
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getUserInfo()
-      .then((userInfo) => {
-        setCurrentUser(userInfo);
+    api.getInitialData()
+      .then((data) => {
+        const [initialCardsData, userInfoData] = data;
+        setCurrentUser(userInfoData);
+        setCards(initialCardsData);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
+
+  function handleCardLike(card) {
+    api.likeCard(card._id)
+      .then((newCard) => {
+          setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+      });
+  }
+
+  function handleRemoveCardLike(card) {
+    api.removeLikeCard(card._id)
+      .then((newCard) => {
+          setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+      });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then((res) => {
+        setCards((cards) => cards.filter((c) => c._id !== card._id));
+      });
+  }
 
   function handleEditAvatarClick () {
     setOpenEditAvatarPopup(true);
@@ -67,35 +95,31 @@ function App() {
       });
   }
 
+  function handleAddPlaceSubmit(newCardInfo) {
+    api.addCard(newCardInfo)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Main
+        cards={cards}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
-      />
+        onCardLike={handleCardLike}
+        onCardRemoveLike={handleRemoveCardLike}
+        onCardDelete={handleCardDelete}/>
       <Footer />
 
       <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
       <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-
-      <PopupWithForm
-        name="add-image"
-        title="Новое место"
-        submit="Создать"
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}>
-          <><div className="form__input-container">
-            <input type="text" className="form__input form__input_type_name-of-card" id="name-of-card-input" placeholder="Название" name="name" minLength="2" maxLength="30" required />
-            <span className="form__input-error name-of-card-input-error"></span>
-          </div>
-          <div className="form__input-container">
-            <input type="url" className="form__input form__input_type_url" id="avatar-url-input" placeholder="Ссылка на картинку" name="link" required />
-            <span className="form__input-error avatar-url-input-error"></span>
-          </div></>
-      </PopupWithForm>
+      <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
 
       <PopupWithForm
         name="type_submit"

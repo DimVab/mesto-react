@@ -11,8 +11,7 @@ function EditProfilePopup({onUpdateUser, isOpen, onClose}) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [isOpen]);
-  // Здесь я сделал эффект при открытии попапа, а не при изменении контекста, как сказано в задании. Это потому что при закрытии попапа введённые значения не обнуляются до указанных в currentUser, пока не изменится сам currentUser при сабмите. Это исправляется срабатыванием эффетка при открытии/закрытии попапа
+  }, [currentUser, isOpen]);
 
   function handleChangeName (e) {
       setName(e.target.value);

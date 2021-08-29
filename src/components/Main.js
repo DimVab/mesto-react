@@ -1,47 +1,12 @@
 import React from 'react';
-import api from '../utils/Api';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
+function Main ({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardRemoveLike, onCardDelete}) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [cards, setCards] = React.useState([]);
   const [isAvatarHovered, setAvatarHovered] = React.useState(false);
-
-  React.useEffect(() => {
-    api.getInitialData()
-      .then((data) => {
-        const [initialCardsData, userInfoData] = data;
-        setCards(initialCardsData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  function handleCardLike(card) {
-    api.likeCard(card._id)
-      .then((newCard) => {
-          setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
-      });
-  }
-
-  function handleRemoveCardLike(card) {
-    api.removeLikeCard(card._id)
-      .then((newCard) => {
-          setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
-      });
-  }
-
-  function handleCardDelete(card) {
-    api.deleteCard(card._id)
-      .then((res) => {
-        console.log(res);
-        setCards((cards) => cards.filter((c) => c._id != card._id));
-      });
-  }
 
   function mouseoverAvatar () {
     setAvatarHovered(true);
@@ -77,9 +42,9 @@ function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
               card={card}
               key={card._id}
               onCardClick={onCardClick}
-              onCardLike={handleCardLike}
-              onRemoveCardLike={handleRemoveCardLike}
-              onCardDelete={handleCardDelete}/>
+              onCardLike={onCardLike}
+              onCardRemoveLike={onCardRemoveLike}
+              onCardDelete={onCardDelete}/>
           })}
 
         </ul>
