@@ -5,7 +5,6 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Main ({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardRemoveLike, onCardDelete}) {
 
   const currentUser = React.useContext(CurrentUserContext);
-
   const [isAvatarHovered, setAvatarHovered] = React.useState(false);
 
   function mouseoverAvatar () {

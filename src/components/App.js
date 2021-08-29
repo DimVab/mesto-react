@@ -63,31 +63,6 @@ function App() {
       });
   }
 
-  function handleEditAvatarClick () {
-    setOpenEditAvatarPopup(true);
-  }
-
-  function handleEditProfileClick () {
-    setOpenProfilePopup(true);
-  }
-
-  function handleAddPlaceClick () {
-    setOpenAddPlacePopup(true);
-  }
-
-  function handleCardClick (card) {
-    setSelectedCard(card);
-    setOpenImagePopup(true);
-  }
-
-  function closeAllPopups () {
-    setOpenEditAvatarPopup(false);
-    setOpenProfilePopup(false);
-    setOpenAddPlacePopup(false);
-    setOpenImagePopup(false);
-    setSelectedCard({});
-  }
-
   function handleUpdateUser(userData) {
     api.editUserInfo(userData)
       .then((newUserInfo) => {
@@ -119,6 +94,31 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function handleEditAvatarClick () {
+    setOpenEditAvatarPopup(true);
+  }
+
+  function handleEditProfileClick () {
+    setOpenProfilePopup(true);
+  }
+
+  function handleAddPlaceClick () {
+    setOpenAddPlacePopup(true);
+  }
+
+  function handleCardClick (card) {
+    setSelectedCard(card);
+    setOpenImagePopup(true);
+  }
+
+  function closeAllPopups () {
+    setOpenEditAvatarPopup(false);
+    setOpenProfilePopup(false);
+    setOpenAddPlacePopup(false);
+    setOpenImagePopup(false);
+    setSelectedCard({});
   }
 
   return (
