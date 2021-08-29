@@ -5,7 +5,7 @@ function PopupWithForm ({name, title, submit, isOpen, onClose, onSubmit, childre
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
         <button className="popup__close-icon" type="button" onClick={onClose} aria-label="Закрыть"></button>
-        <form className="form" name={name} noValidate onSubmit={onSubmit}>
+        <form className="form" name={name} onSubmit={onSubmit}>
           {children}
           <input type="submit" className="form__submit-button" value={submit} />
         </form>

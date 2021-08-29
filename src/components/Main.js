@@ -37,14 +37,15 @@ function Main ({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onC
         <ul className="elements__list">
 
           {cards.map((card) => {
-            return <Card
+            return ( <Card
               card={card}
               key={card._id}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardRemoveLike={onCardRemoveLike}
               onCardDelete={onCardDelete}/>
-          })}
+            )
+            })}
 
         </ul>
       </section>

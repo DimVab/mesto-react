@@ -33,6 +33,18 @@ function App() {
       });
   }, []);
 
+  React.useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('keydown', closeByEscape)
+
+    return () => document.removeEventListener('keydown', closeByEscape)
+  }, []);
+
   function handleCardLike(card) {
     api.likeCard(card._id)
       .then((newCard) => {
